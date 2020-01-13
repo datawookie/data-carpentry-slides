@@ -1,0 +1,199 @@
+---
+title: "R for Social Science"
+subtitle: ""
+author: "Andrew Collier"
+institute: "Exegetic Analytics"
+date: ""
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "macros.js"
+---
+class: middle
+
+Detailed notes can be found at https://datacarpentry.org/r-socialsci/.
+
+---
+
+class: inverse, center, middle
+
+# Setup
+
+---
+
+## Installing R & RStudio
+
+Detailed instructions at <https://bit.ly/36PeFFz>.
+
+1. Install R.
+2. Install RStudio.
+
+---
+class: inverse, center, middle
+
+# Preliminaries
+
+---
+
+## What is R?
+
+## What is RStudio?
+
+---
+
+## Why learn R?
+
+- No more point-and-click
+--
+
+- Great for reproducibility
+--
+
+- Works with data of all shapes and sizes
+--
+
+- High quality graphics
+--
+
+- Interdisciplinary and extensible
+--
+
+- Large and welcoming community
+--
+
+- Free, Open Source and Cross-Platform
+
+---
+class: center, middle
+
+![:scale 90%](rstudio-interface.png)
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Creating Structure
+
+1. Create a project.
+2. Create folder structure:
+
+```
+data/
+data_output/
+documents/
+fig_output/
+scripts/
+```
+
+You can create the folders using either (a) the Files tab or (b) the `dir.create()` function.
+
+---
+
+## Working Folder
+
+This is where everything happens.
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Getting Data
+
+Download the `SAFI_clean.csv` dataset.
+
+Either:
+
+- manually or
+- with code.
+
+---
+## Interacting with RStudio
+
+In the console: use <kbd>Enter</kbd> to run a command.
+
+--
+
+In a script: use <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (or <kbd>Cmd</kbd>+<kbd>Return</kbd>) to run a command.
+
+--
+
+Other handy shortcuts:
+
+- <kbd>Ctrl</kbd>+<kbd>L</kbd> &mdash; clean console
+- <kbd>Ctrl</kbd>+<kbd>1</kbd> &mdash; shift focus to editor
+- <kbd>Ctrl</kbd>+<kbd>2</kbd> &mdash; shift focus to console
+
+---
+## Getting Help
+
+You can ask for help:
+
+- on Stack Overflow
+- on Twitter
+- on R mailing lists.
+
+**But do your homework first!**
+
+Also used the integrated help.
+
+```{r eval = FALSE}
+?glm
+??Poisson
+```
+
+---
+## Installing Packages
+
+There are two ways to do this:
+
+- using the Packages tab or
+- using code.
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Install a Package
+
+Install the `tidyverse` package.
+
+---
+class: inverse, center, middle
+
+# Introduction to R
+
+---
+
+## R is a Fancy Scientific Calculator
+
+```{r}
+3 + 5
+12 / 7
+```
+
+---
+class: inverse, center, middle
+
+# Starting with Data
+
+---
+class: inverse, center, middle
+
+# Introducing dplyr and tidyr
+
+---
+class: inverse, center, middle
+
+# Data Visualisation with ggplot2
+
