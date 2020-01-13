@@ -16,6 +16,11 @@ output:
 ---
 class: middle
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment = NULL)
+options(tibble.print_min = 5)
+```
+
 Detailed notes can be found at https://datacarpentry.org/r-socialsci/.
 
 ---
@@ -183,9 +188,585 @@ class: inverse, center, middle
 ```
 
 ---
+
+## Creating Variables
+
+This works:
+
+```{r}
+area_hectares = 1.0
+```
+
+This is preferred:
+
+```{r}
+area_hectares <- 1.0
+```
+
+Shortcut for assignment operator: <kbd>Alt</kbd>+<kbd>-</kbd>.
+
+---
+
+## Creating Variables
+
+```{r}
+area_hectares <- 7 * 5
+```
+
+--
+
+```{r}
+(area_hectares <- 7 * 5)
+```
+
+---
+
+You can do maths with variables.
+
+```{r}
+# Convert hectares to acres.
+area_hectares * 2.47
+```
+
+Store the result in a new variable.
+
+```{r}
+(area_acres <- area_hectares * 2.47)
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Creating Variables
+
+```{r eval = FALSE}
+area_hectares <- 5
+(area_acres <- area_hectares * 2.47)
+```
+
+What happens if we change the value of `area_hectares`?
+
+```{r eval = FALSE}
+area_hectares <- 10
+```
+
+What's the value of `area_acres` now?
+
+---
+
+## Comments
+
+Anything after a `#` is treated as a comment.
+
+**Comments are very important.**
+
+```{r eval = FALSE}
+area_hectares <- 1                  # Land area in hectares
+area_acres <- area_hectares * 2.47  # Convert to acres
+area_acres                          # Print land area in acres
+```
+
+```{r eval = FALSE}
+# Land area in hectares
+area_hectares <- 1
+# Convert to acres
+area_acres <- area_hectares * 2.47
+# Print land area in acres
+area_acres
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Commenting Code
+
+- Create two variables, `length` and `width`, and assign them values.
+- Create a variable `area` with a value based on the current values of `length` and `width`.
+- Show that changing the values of either `length` and `width` does not affect the value of `area`.
+- Comment your code.
+
+---
+
+## Functions
+
+.center[
+![:scale 50%](sausage-machine.jpg)
+]
+
+---
+
+## Functions
+
+```{r}
+round(3.14159)
+```
+
+--
+
+What does `round()` do? Check the documentation.
+
+```{r eval = FALSE}
+?round
+```
+
+--
+
+```{r}
+round(3.14159, digits = 2)
+round(3.14159, 2)
+round(digits = 2, x = 3.14159)
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Function Documentation
+
+What other functions are similar to `round()`? Give them a try.
+
+---
+
+## Vectors
+
+Vectors allow you to store a collection of values.
+
+```{r}
+# Number of people in households.
+(hh_members <- c(3, 7, 10, 6))
+# Material used for construction.
+respondent_wall_type <- c("muddaub", "burntbricks", "sunbricks")
+```
+
+--
+
+How many elements in a vector?
+
+```{r}
+length(hh_members)
+```
+
+---
+
+## Vectors
+
+What is the data type of those vectors?
+
+```{r}
+class(hh_members)
+class(respondent_wall_type)
+```
+
+All elements of a vector must be of the same type.
+
+---
+
+## Vectors
+
+Adding elements to a vector.
+
+```{r}
+possessions <- c("bicycle", "radio", "television")
+possessions <- c(possessions, "mobile_phone")      # Add to the end of the vector
+possessions <- c("car", possessions)               # Add to the beginning of the vector
+possessions
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Mixing Type in Vectors
+
+A vector can only contain a single type. What happens in the following code?
+
+```{r eval = FALSE}
+num_char <- c(1, 2, 3, "a")
+num_logical <- c(1, 2, 3, TRUE)
+char_logical <- c("a", "b", "c", TRUE)
+tricky <- c(1, 2, 3, "4")
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Combining Vectors
+
+```{r eval = FALSE}
+num_logical <- c(1, 2, 3, TRUE)
+char_logical <- c("a", "b", "c", TRUE)
+combined_logical <- c(num_logical, char_logical)
+```
+
+How many values in `combined_logical` are `"TRUE"`?
+
+---
+
+## Slicing Vectors
+
+```{r}
+hh_members
+hh_members[2]
+hh_members[c(1, 3)]
+hh_members[1:3]
+hh_members[-4]
+```
+
+---
+
+## Slicing Vectors
+
+```{r}
+hh_members
+hh_members[c(TRUE, FALSE, TRUE, FALSE)]
+hh_members[hh_members > 6]
+hh_members[hh_members > 6 & hh_members < 10]
+hh_members[hh_members > 6 | hh_members < 4]
+```
+
+---
+
+## Missing Data
+
+Missing data is indicated by `NA`.
+
+```{r}
+rooms <- c(2, 1, 1, NA, 4)
+mean(rooms)
+```
+
+--
+
+```{r}
+mean(rooms, na.rm = TRUE)
+```
+
+---
+
+## Missing Data
+
+```{r}
+rooms[!is.na(rooms)]
+na.omit(rooms)
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Missing Data
+
+```{r}
+rooms <- c(1, 2, 1, 1, NA, 3, 1, 3, 2, 1, 1, 8, 3, 1, NA, 1)
+```
+
+1. Create a new vectors with `NA` values removed.
+2. Use `median()` to calculate the median value of `rooms`.
+3. Use R to find out how many households have *more than* 2 rooms.
+
+---
 class: inverse, center, middle
 
 # Starting with Data
+
+---
+
+## Loading Data
+
+Load the `tidyverse`.
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+--
+
+Load data.
+
+```{r message=FALSE}
+interviews <- read_csv("data/SAFI_clean.csv", na = "NULL")
+```
+
+Assumes that the file is comma delimited.
+
+--
+
+```{r}
+class(interviews)
+```
+
+---
+
+## Loading Data
+
+```{r}
+interviews
+```
+
+---
+
+## Inspecting the Data
+
+```{r}
+dim(interviews)
+nrow(interviews)
+ncol(interviews)
+```
+
+--
+
+```{r}
+names(interviews)
+```
+
+---
+
+## Inspecting the Data
+
+```{r}
+head(interviews)
+```
+
+---
+
+## Inspecting the Data
+
+```{r}
+tail(interviews)
+```
+
+---
+
+## Slicing the Data
+
+The first row.
+
+```{r}
+interviews[1,]
+```
+
+---
+
+## Slicing the Data
+
+The first column (as a data frame).
+
+```{r}
+interviews[, 1]
+```
+
+---
+
+## Slicing the Data
+
+The first column by name.
+
+```{r}
+interviews[, "key_ID"]
+```
+
+---
+
+## Slicing the Data
+
+The first column as a vector.
+
+```{r}
+interviews$key_ID
+```
+
+---
+
+## Slicing the Data
+
+Specifying row and column.
+
+```{r}
+interviews[3:5, 2]
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Data Frames
+
+1. Create a data frame (`interviews_100`) containing only the data in row 100 of `interviews`.
+2. Remember that `nrow()` gave you the number of rows in a data frame?
+
+  - Use that number to pull out just that last row in the data frame.
+  - Compare that with what you see as the last row using `tail()` to make sure it’s correct.
+  - Pull out that last row using `nrow()` instead of the row number.
+  - Create a new data frame (`interviews_last`) from that last row.
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Data Frames
+
+3. Use `nrow()` to extract the middle row of the data frame. Store the result in `interviews_middle`.
+4. Use `nrow()` with negative indexing to reproduce the behavior of `head(interviews)`.
+
+---
+
+## Factors
+
+```{r}
+respondent_floor_type <- factor(c("earth", "cement", "cement", "earth"))
+```
+
+--
+
+```{r}
+levels(respondent_floor_type)
+nlevels(respondent_floor_type)
+```
+
+--
+
+What's happening behind the scenes?
+
+```{r}
+as.integer(respondent_floor_type)
+```
+
+---
+
+## Order of Levels
+
+```{r}
+respondent_floor_type
+```
+
+--
+
+Change order.
+
+```{r}
+(respondent_floor_type <- factor(respondent_floor_type, levels = c("earth", "cement")))
+```
+
+---
+
+## Converting Factors
+
+This works.
+
+```{r}
+as.character(respondent_floor_type)
+```
+
+--
+
+This doesn't work.
+
+```{r}
+year_fct <- factor(c(1990, 1983, 1977, 1998, 1990))
+as.numeric(year_fct)
+```
+
+--
+
+This works.
+
+```{r}
+as.numeric(as.character(year_fct))
+```
+
+---
+
+## Renaming Factors
+
+```{r}
+memb_assoc <- as.factor(interviews$memb_assoc)
+memb_assoc
+```
+
+--
+
+```{r}
+table(memb_assoc)
+```
+
+What happened to the missing data?
+
+---
+
+## Renaming Factors
+
+```{r}
+memb_assoc <- interviews$memb_assoc
+memb_assoc[is.na(memb_assoc)] <- "???"
+(memb_assoc <- as.factor(memb_assoc))
+```
+
+--
+
+```{r}
+table(memb_assoc)
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Factors
+
+```{r}
+levels(memb_assoc)
+```
+
+1. Rename the levels of the factor to have the first letter in uppercase: "???", "No" and "Yes".
+2. Change the order of the levels so that `???` is last.
+
+---
+
+## Formatting Dates
+
+```{r}
+dates <- interviews$interview_date
+head(dates)
+class(dates)
+```
+
+---
+
+## Formatting Dates
+
+```{r warning=FALSE, message=FALSE}
+library(lubridate)
+```
+
+Use functions from the `lubridate` package to extract date parts.
+
+```{r}
+interviews$day <- day(dates)
+interviews$month <- month(dates)
+interviews$year <- year(dates)
+interviews[, c("interview_date", "year", "month", "day")]
+```
 
 ---
 class: inverse, center, middle
