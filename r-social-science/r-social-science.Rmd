@@ -23,6 +23,14 @@ options(tibble.print_min = 5)
 
 Detailed notes can be found at https://datacarpentry.org/r-socialsci/.
 
+We'll be using [this dataset](http://www.datacarpentry.org/socialsci-workshop/data/).
+
+---
+
+## Some Inspiration
+
+- [The R Graph Gallery](https://www.r-graph-gallery.com/)
+
 ---
 
 class: inverse, center, middle
@@ -113,12 +121,12 @@ This is where everything happens.
 
 ## Getting Data
 
-Download the `SAFI_clean.csv` dataset.
+Download the `SAFI_clean.csv` dataset from <https://ndownloader.figshare.com/files/11492171>.
 
 Either:
 
 - manually or
-- with code.
+- with code (using `download.file()`).
 
 ---
 ## Interacting with RStudio
@@ -136,6 +144,8 @@ Other handy shortcuts:
 - <kbd>Ctrl</kbd>+<kbd>L</kbd> &mdash; clean console
 - <kbd>Ctrl</kbd>+<kbd>1</kbd> &mdash; shift focus to editor
 - <kbd>Ctrl</kbd>+<kbd>2</kbd> &mdash; shift focus to console
+- <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>c</kbd> &mdash; comment/uncomment block
+- <kbd>Ctrl</kbd>+<kbd>i</kbd> &mdash; fix indentation
 
 ---
 ## Getting Help
@@ -475,7 +485,7 @@ na.omit(rooms)
 rooms <- c(1, 2, 1, 1, NA, 3, 1, 3, 2, 1, 1, 8, 3, 1, NA, 1)
 ```
 
-1. Create a new vectors with `NA` values removed.
+1. Create a new vector with `NA` values removed.
 2. Use `median()` to calculate the median value of `rooms`.
 3. Use R to find out how many households have *more than* 2 rooms.
 
@@ -523,22 +533,6 @@ interviews
 ## Inspecting the Data
 
 ```{r}
-dim(interviews)
-nrow(interviews)
-ncol(interviews)
-```
-
---
-
-```{r}
-names(interviews)
-```
-
----
-
-## Inspecting the Data
-
-```{r}
 head(interviews)
 ```
 
@@ -548,6 +542,22 @@ head(interviews)
 
 ```{r}
 tail(interviews)
+```
+
+---
+
+## Inspecting the Data
+
+```{r}
+dim(interviews)
+nrow(interviews)
+ncol(interviews)
+```
+
+--
+
+```{r}
+names(interviews)
 ```
 
 ---
@@ -616,16 +626,7 @@ interviews[3:5, 2]
   - Pull out that last row using `nrow()` instead of the row number.
   - Create a new data frame (`interviews_last`) from that last row.
 
----
-
-![](exercise-banner.svg)
-
-<hr>
-
-## Data Frames
-
 3. Use `nrow()` to extract the middle row of the data frame. Store the result in `interviews_middle`.
-4. Use `nrow()` with negative indexing to reproduce the behavior of `head(interviews)`.
 
 ---
 
