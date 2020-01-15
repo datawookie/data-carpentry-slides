@@ -266,19 +266,190 @@ interviews$year <- year(dates)
 
 interviews[, c("interview_date", "year", "month", "day")]
 
-# ---------------------------------------------------------------------------------------------------------------------
+# TIDYVERSE -----------------------------------------------------------------------------------------------------------
 
-# ---------------------------------------------------------------------------------------------------------------------
+library(tidyverse)
 
-# ---------------------------------------------------------------------------------------------------------------------
+library(dplyr)
+library(tidyr)
 
-# ---------------------------------------------------------------------------------------------------------------------
+# SELECTING COLUMNS ---------------------------------------------------------------------------------------------------
 
-# ---------------------------------------------------------------------------------------------------------------------
+select(interviews, village, no_membrs, years_liv)
 
-# ---------------------------------------------------------------------------------------------------------------------
+# FILTERING ROWS ------------------------------------------------------------------------------------------------------
 
-# ---------------------------------------------------------------------------------------------------------------------
+filter(interviews, village == "God")
+
+# PIPE ----------------------------------------------------------------------------------------------------------------
+
+interviews2 <- filter(interviews, village == "God")
+interviews_god <- select(interviews2, no_membrs, years_liv)
+
+interviews_god <- select(filter(interviews, village == "God"), no_membrs, years_liv)
+
+interviews %>%
+  filter(village == "God") %>%
+  select(no_membrs, years_liv)
+
+interviews %>% filter(memb_assoc == "yes") %>% select(affect_conflicts, liv_count, no_meals)
+
+# MUTATE --------------------------------------------------------------------------------------------------------------
+
+interviews %>%
+  mutate(people_per_room = no_membrs / rooms)
+
+# Does being a member of an irrigation association has an effect on the ratio of household members to rooms?
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  mutate(people_per_room = no_membrs / rooms)
+
+interviews %>%
+  mutate(
+    total_meals = no_membrs * no_meals
+  ) %>%
+  filter(total_meals < 20) %>%
+  select(village)
+
+# SUMMARIES -----------------------------------------------------------------------------------------------------------
+
+interviews %>%
+  group_by(village) %>%
+  summarize(mean_no_membrs = mean(no_membrs))
+
+interviews %>%
+  group_by(village, memb_assoc) %>%
+  summarize(mean_no_membrs = mean(no_membrs))
+
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  group_by(village, memb_assoc) %>%
+  summarize(mean_no_membrs = mean(no_membrs))
+
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  group_by(village, memb_assoc) %>%
+  summarize(
+    mean_no_membrs = mean(no_membrs),
+    min_membrs = min(no_membrs)
+  )
+
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  group_by(village, memb_assoc) %>%
+  summarize(mean_no_membrs = mean(no_membrs), min_membrs = min(no_membrs)) %>%
+  arrange(min_membrs)
+
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  group_by(village, memb_assoc) %>%
+  summarize(mean_no_membrs = mean(no_membrs), min_membrs = min(no_membrs)) %>%
+  arrange(desc(min_membrs))
+
+interviews %>%
+  count(village)
+
+interviews %>%
+  count(village, sort = TRUE)
+
+# Count of average number of meals per day.
+interviews %>%
+  count(no_meals)
+
+interviews %>%
+  group_by(village) %>%
+  summarise(
+    mean_no_membrs = mean(no_membrs),
+    min_no_membrs = min(no_membrs),
+    max_no_membrs = max(no_membrs),
+    observations = n()
+  )
+
+# Largest household interviewed in each month?
+interviews %>%
+  group_by(month) %>%
+  summarise(
+    largest_household = max(no_membrs)
+  )
+
+# SPREAD --------------------------------------------------------------------------------------------------------------
+
+interviews %>%
+  select(instanceID, respondent_wall_type, no_membrs)
+
+interviews_spread <- interviews %>%
+  select(instanceID, respondent_wall_type, no_membrs) %>%
+  spread(respondent_wall_type, no_membrs)
+interviews_spread
+
+interviews %>%
+  select(instanceID, respondent_wall_type, no_membrs) %>%
+  spread(respondent_wall_type, no_membrs, fill = 0)
+
+# GATHER --------------------------------------------------------------------------------------------------------------
+
+interviews_spread %>%
+  gather(respondent_wall_type, no_membrs, burntbricks, cement, muddaub, sunbricks)
+# A shortcut way to specify range of columns.
+interviews_spread %>%
+  gather(respondent_wall_type, no_membrs, burntbricks:sunbricks)
+
+interviews_spread %>%
+  gather(respondent_wall_type, no_membrs, -instanceID)
+
+# CLEANING ------------------------------------------------------------------------------------------------------------
+
+interviews %>%
+  select(key_ID, items_owned)
+
+interviews %>%
+  separate_rows(items_owned, sep=";") %>%
+  select(key_ID, items_owned)
+
+interviews %>%
+  separate_rows(items_owned, sep=";") %>%
+  mutate(items_owned_logical = TRUE) %>%
+  select(key_ID, items_owned, items_owned_logical)
+
+interviews %>%
+  separate_rows(items_owned, sep=";") %>%
+  mutate(items_owned_logical = TRUE) %>%
+  spread(key = items_owned, value = items_owned_logical, fill = FALSE)
+
+# Months without food.
+interviews_months_lack_food <- interviews %>%
+  separate_rows(months_lack_food, sep=";") %>%
+  mutate(months_lack_food_logical  = TRUE) %>%
+  spread(key = months_lack_food, value = months_lack_food_logical, fill = FALSE)
+
+# Average months without food versus irrigation association.
+interviews_months_lack_food <- interviews %>%
+  separate_rows(months_lack_food, sep=";") %>%
+  group_by(memb_assoc, key_ID) %>%
+  summarise(
+  count = n()
+  ) %>%
+  summarise(
+  mean_months = mean(count)
+  )
+
+# EXPORTING -----------------------------------------------------------------------------------------------------------
+
+interviews_plotting <- interviews %>%
+  ## spread data by items_owned
+  separate_rows(items_owned, sep=";") %>%
+  mutate(items_owned_logical = TRUE) %>%
+  spread(key = items_owned, value = items_owned_logical, fill = FALSE) %>%
+  rename(no_listed_items = `<NA>`) %>%
+  ## spread data by months_lack_food
+  separate_rows(months_lack_food, sep=";") %>%
+  mutate(months_lack_food_logical = TRUE) %>%
+  spread(key = months_lack_food, value = months_lack_food_logical, fill = FALSE) %>%
+  ## add some summary columns
+  mutate(number_months_lack_food = rowSums(select(., Apr:Sept))) %>%
+  mutate(number_items = rowSums(select(., bicycle:television)))
+
+write_csv(interviews_plotting, path = "data_output/interviews_plotting.csv")
 
 # ---------------------------------------------------------------------------------------------------------------------
 

@@ -775,6 +775,396 @@ class: inverse, center, middle
 # Introducing dplyr and tidyr
 
 ---
+
+## What is an R package?
+
+Let's take a look at [CRAN](http://cran.r-project.org/).
+
+--
+
+Installing a package.
+
+```{r eval = FALSE}
+install.packages("survey")
+```
+
+--
+
+Loading a package.
+
+```{r eval = FALSE}
+library(survey)
+```
+
+It's a bit like buying a book. Why?
+
+--
+
+Getting help on a package.
+
+```{r eval = FALSE}
+help(package = "survey")
+library(help = "survey")
+```
+
+---
+
+## Loading dplyr and tidyr
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+```
+
+---
+
+## Selecting columns
+
+```{r}
+select(interviews, village, no_membrs, years_liv)
+```
+
+---
+
+## Filtering rows
+
+```{r}
+filter(interviews, village == "God")
+```
+
+---
+
+## The Pipe
+
+How to apply multiple operations?
+
+--
+
+One approach.
+
+```{r}
+interviews2 <- filter(interviews, village == "God")
+interviews_god <- select(interviews2, no_membrs, years_liv)
+```
+
+--
+
+Another approach (nesting functions).
+
+```{r}
+interviews_god <- select(filter(interviews, village == "God"), no_membrs, years_liv)
+```
+
+---
+
+## The Pipe
+
+```{r}
+interviews %>%
+    filter(village == "God") %>%
+    select(no_membrs, years_liv)
+```
+
+Keyboard shortcut: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>m</kbd>.
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Pipe
+
+Using pipes, subset `interviews` to include interviews where
+
+- respondents were members of an irrigation association (`memb_assoc`) and
+- retain only the columns `affect_conflicts`, `liv_count` and `no_meals`.
+
+---
+
+## Mutating
+
+```{r}
+interviews %>%
+    mutate(people_per_room = no_membrs / rooms)
+```
+
+---
+
+## Mutating
+
+Investigate whether being a member of an irrigation association has an effect on the ratio of household members to rooms.
+
+--
+
+```{r}
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  mutate(people_per_room = no_membrs / rooms) %>%
+  select(memb_assoc, people_per_room)
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Mutate
+
+Create a new data frame from `interviews` that meets the following criteria:
+
+- contains only the `village` column and
+- a new column called `total_meals` (total number of meals served in the household per day on average, `no_membrs` times `no_meals`).
+
+Only the rows where total_meals is greater than 20 should be shown in the final data frame.
+
+**Hint:** think about how the commands should be ordered to produce this data frame!
+
+---
+
+## Summary Statistics
+
+```{r}
+interviews %>%
+  group_by(village) %>%
+  summarize(mean_no_membrs = mean(no_membrs))
+```
+
+---
+
+## Summary Statistics
+
+Grouping by multiple columns.
+
+```{r}
+interviews %>%
+  group_by(village, memb_assoc) %>%
+  summarize(mean_no_membrs = mean(no_membrs))
+```
+
+---
+
+## Summary Statistics
+
+Throwing in a `filter()`.
+
+```{r}
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  group_by(village, memb_assoc) %>%
+  summarize(mean_no_membrs = mean(no_membrs))
+```
+
+---
+
+## Summary Statistics
+
+Create multiple summaries.
+
+```{r}
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  group_by(village, memb_assoc) %>%
+  summarize(
+    mean_no_membrs = mean(no_membrs),
+    min_membrs = min(no_membrs)
+  )
+```
+
+---
+
+## Summary Statistics
+
+Sort the results.
+
+```{r}
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  group_by(village, memb_assoc) %>%
+  summarize(mean_no_membrs = mean(no_membrs), min_membrs = min(no_membrs)) %>%
+  arrange(min_membrs)
+```
+
+---
+
+## Summary Statistics
+
+Reverse order of sort.
+
+```{r}
+interviews %>%
+  filter(!is.na(memb_assoc)) %>%
+  group_by(village, memb_assoc) %>%
+  summarize(mean_no_membrs = mean(no_membrs), min_membrs = min(no_membrs)) %>%
+  arrange(desc(min_membrs))
+```
+
+---
+
+## Counts
+
+```{r}
+interviews %>%
+    count(village)
+```
+
+```{r}
+interviews %>%
+    count(village, sort = TRUE)
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Summaries
+
+- How many households in the survey have an average of two meals per day? Three meals per day? Are there any other numbers of meals represented?
+- Use `group_by()` and `summarize()` to find the mean, min, and max number of household members for each village. Also add the number of observations (**Hint:** see `?n`).
+- What was the largest household interviewed in each month?
+
+---
+
+## Reshaping with gather and spread
+
+- `spread()` &mdash; make data wide
+- `gather()` &mdash; make data long
+
+---
+
+## Spreading
+
+`spread()` takes three principal arguments:
+
+- the data
+- the key column (values will become new column names)
+- the value column (values will fill the new column variables)
+
+---
+
+## Spreading
+
+```{r}
+interviews %>%
+  select(instanceID, respondent_wall_type, no_membrs)
+```
+
+---
+
+## Spreading
+
+```{r}
+interviews_spread <- interviews %>%
+  select(instanceID, respondent_wall_type, no_membrs) %>%
+  spread(respondent_wall_type, no_membrs)
+interviews_spread
+```
+
+---
+
+## Spreading
+
+```{r}
+interviews %>%
+  select(instanceID, respondent_wall_type, no_membrs) %>%
+  spread(respondent_wall_type, no_membrs, fill = 0)
+```
+
+---
+
+## Gathering
+
+`gather()` takes four principal arguments:
+
+- the data
+- the key column (variable to create from column names)
+- the value column (variable to create and fill with values associated with the key)
+- the names of the columns to gather.
+
+---
+
+## Gathering
+
+```{r}
+interviews_spread %>%
+  gather(respondent_wall_type, no_membrs, burntbricks, cement, muddaub, sunbricks)
+```
+
+---
+
+## Gathering
+
+```{r}
+interviews_spread %>%
+  gather(respondent_wall_type, no_membrs, -instanceID)
+```
+
+---
+
+## Cleaning
+
+This column is hard to work with:
+
+```{r}
+interviews %>%
+  select(key_ID, items_owned)
+```
+
+---
+
+## Cleaning
+
+We can fix that.
+
+```{r eval = FALSE}
+interviews %>%
+  separate_rows(items_owned, sep=";") %>%
+  mutate(items_owned_logical = TRUE) %>%
+  spread(key = items_owned, value = items_owned_logical, fill = FALSE)
+```
+
+---
+
+![](exercise-banner.svg)
+
+<hr>
+
+## Cleaning
+
+- Create `interviews_months_lack_food` that has one column for each month and records `TRUE` or `FALSE` for whether each interview respondent was lacking food in that month.
+- How many months (on average) were respondents without food if they did belong to an irrigation association? What about if they didn't?
+
+---
+
+## Exporting
+
+```{r}
+interviews_plotting <- interviews %>%
+    # Spread data by items_owned
+    separate_rows(items_owned, sep=";") %>%
+    mutate(items_owned_logical = TRUE) %>%
+    spread(key = items_owned, value = items_owned_logical, fill = FALSE) %>%
+    rename(no_listed_items = `<NA>`) %>%
+    # Spread data by months_lack_food
+    separate_rows(months_lack_food, sep=";") %>%
+    mutate(months_lack_food_logical = TRUE) %>%
+    spread(key = months_lack_food, value = months_lack_food_logical, fill = FALSE) %>%
+    # Add summary columns
+    mutate(number_months_lack_food = rowSums(select(., Apr:Sept))) %>%
+    mutate(number_items = rowSums(select(., bicycle:television)))
+```
+```{r eval = FALSE}
+write_csv(interviews_plotting, path = "data_output/interviews_plotting.csv")
+```
+
+---
 class: inverse, center, middle
 
 # Data Visualisation with ggplot2
