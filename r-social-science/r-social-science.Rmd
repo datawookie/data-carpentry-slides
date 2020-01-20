@@ -84,11 +84,11 @@ class: inverse, center, middle
 ---
 class: center, middle
 
-![:scale 90%](rstudio-interface.png)
+![:scale 90%](https://github.com/datawookie/useful-images/raw/master/rstudio-interface.png)
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -115,7 +115,7 @@ This is where everything happens.
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -127,6 +127,8 @@ Either:
 
 - manually or
 - with code (using `download.file()`).
+
+Make sure that the CSV file ends up in the `data/` folder.
 
 ---
 ## Interacting with RStudio
@@ -144,8 +146,8 @@ Other handy shortcuts:
 - <kbd>Ctrl</kbd>+<kbd>L</kbd> &mdash; clean console
 - <kbd>Ctrl</kbd>+<kbd>1</kbd> &mdash; shift focus to editor
 - <kbd>Ctrl</kbd>+<kbd>2</kbd> &mdash; shift focus to console
-- <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>c</kbd> &mdash; comment/uncomment block
 - <kbd>Ctrl</kbd>+<kbd>i</kbd> &mdash; fix indentation
+- <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>c</kbd> &mdash; comment/uncomment block
 
 ---
 ## Getting Help
@@ -153,7 +155,7 @@ Other handy shortcuts:
 You can ask for help:
 
 - on Stack Overflow
-- on Twitter
+- on Twitter or
 - on R mailing lists.
 
 **But do your homework first!**
@@ -175,13 +177,15 @@ There are two ways to do this:
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
 ## Install a Package
 
 Install the `tidyverse` package.
+
+Either use the Packages tab or `install.packages()`.
 
 ---
 class: inverse, center, middle
@@ -246,7 +250,7 @@ Store the result in a new variable.
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -290,7 +294,7 @@ area_acres
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -306,7 +310,7 @@ area_acres
 ## Functions
 
 .center[
-![:scale 50%](sausage-machine.jpg)
+![:scale 50%](https://raw.githack.com/datawookie/useful-images/master/meat-mincer-new.jpg)
 ]
 
 ---
@@ -329,13 +333,23 @@ What does `round()` do? Check the documentation.
 
 ```{r}
 round(3.14159, digits = 2)
+```
+
+--
+
+```{r}
 round(3.14159, 2)
+```
+
+--
+
+```{r}
 round(digits = 2, x = 3.14159)
 ```
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -350,9 +364,9 @@ What other functions are similar to `round()`? Give them a try.
 Vectors allow you to store a collection of values.
 
 ```{r}
-# Number of people in households.
+# Number of people per household
 (hh_members <- c(3, 7, 10, 6))
-# Material used for construction.
+# Material used for construction
 respondent_wall_type <- c("muddaub", "burntbricks", "sunbricks")
 ```
 
@@ -381,6 +395,10 @@ All elements of a vector must be of the same type.
 
 ## Vectors
 
+`c()` is the *concatenation* function.
+
+--
+
 Adding elements to a vector.
 
 ```{r}
@@ -392,7 +410,7 @@ possessions
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -409,7 +427,7 @@ tricky <- c(1, 2, 3, "4")
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -429,9 +447,29 @@ How many values in `combined_logical` are `"TRUE"`?
 
 ```{r}
 hh_members
+```
+
+--
+
+```{r}
 hh_members[2]
+```
+
+--
+
+```{r}
 hh_members[c(1, 3)]
+```
+
+--
+
+```{r}
 hh_members[1:3]
+```
+
+--
+
+```{r}
 hh_members[-4]
 ```
 
@@ -441,9 +479,29 @@ hh_members[-4]
 
 ```{r}
 hh_members
+```
+
+--
+
+```{r}
 hh_members[c(TRUE, FALSE, TRUE, FALSE)]
+```
+
+--
+
+```{r}
 hh_members[hh_members > 6]
+```
+
+--
+
+```{r}
 hh_members[hh_members > 6 & hh_members < 10]
+```
+
+--
+
+```{r}
 hh_members[hh_members > 6 | hh_members < 4]
 ```
 
@@ -469,13 +527,25 @@ mean(rooms, na.rm = TRUE)
 ## Missing Data
 
 ```{r}
+is.na(rooms)
+!is.na(rooms)
+```
+
+--
+
+```{r}
 rooms[!is.na(rooms)]
+```
+
+--
+
+```{r}
 na.omit(rooms)
 ```
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -554,7 +624,9 @@ nrow(interviews)
 ncol(interviews)
 ```
 
---
+---
+
+## Inspecting the Data
 
 ```{r}
 names(interviews)
@@ -612,7 +684,7 @@ interviews[3:5, 2]
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -729,18 +801,17 @@ table(memb_assoc)
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
 ## Factors
 
 ```{r}
-levels(memb_assoc)
+head(mtcars)
 ```
 
-1. Rename the levels of the factor to have the first letter in uppercase: "???", "No" and "Yes".
-2. Change the order of the levels so that `???` is last.
+Make the `am` and `vs` columns more use-friendly by converting to factors with informative labels.
 
 ---
 
@@ -768,6 +839,28 @@ interviews$month <- month(dates)
 interviews$year <- year(dates)
 interviews[, c("interview_date", "year", "month", "day")]
 ```
+
+---
+
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
+
+<hr>
+
+## Parsing Dates
+
+Load the `lubridate` library.
+
+Take a look at `?as_date` and `?strptime`. Here's an example:
+
+```{r}
+as_date("23 Sep 1998", format = "%d %b %Y", tz = "UTC")
+```
+
+Now parse the following dates:
+
+- 1998/23/09
+- 23 September 98
+- 23-09-1998
 
 ---
 class: inverse, center, middle
@@ -811,9 +904,13 @@ library(help = "survey")
 
 ## Loading dplyr and tidyr
 
+Load the whole tidyverse.
+
 ```{r}
 library(tidyverse)
 ```
+
+Load individual packages.
 
 ```{r}
 library(dplyr)
@@ -873,44 +970,33 @@ Keyboard shortcut: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>m</kbd>.
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
 ## Pipe
 
-Using pipes, subset `interviews` to include interviews where
+Using pipes, subset `interviews` to retain only
 
-- respondents were members of an irrigation association (`memb_assoc`) and
-- retain only the columns `affect_conflicts`, `liv_count` and `no_meals`.
-
----
-
-## Mutating
-
-```{r}
-interviews %>%
-    mutate(people_per_room = no_membrs / rooms)
-```
+- responses from members of an irrigation association (`memb_assoc`) and
+- the columns `affect_conflicts`, `liv_count` and `no_meals`.
 
 ---
 
 ## Mutating
-
-Investigate whether being a member of an irrigation association has an effect on the ratio of household members to rooms.
 
 --
 
 ```{r}
 interviews %>%
-  filter(!is.na(memb_assoc)) %>%
+  filter(rooms > 1) %>%
   mutate(people_per_room = no_membrs / rooms) %>%
-  select(memb_assoc, people_per_room)
+  select(no_membrs, rooms, people_per_room)
 ```
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
@@ -918,12 +1004,23 @@ interviews %>%
 
 Create a new data frame from `interviews` that meets the following criteria:
 
-- contains only the `village` column and
-- a new column called `total_meals` (total number of meals served in the household per day on average, `no_membrs` times `no_meals`).
+- contains only the `village` column
+- a new column `total_meals` (total number of meals served in the household on average per day) and
+- only rows where `total_meals` is greater than 20.
 
-Only the rows where total_meals is greater than 20 should be shown in the final data frame.
+**Hints:**
 
-**Hint:** think about how the commands should be ordered to produce this data frame!
+- You'll need to use the `no_membrs` and `no_meals` columns.
+- Think about how the commands should be ordered to produce this data frame!
+
+---
+
+## Grouping
+
+```{r}
+interviews %>%
+  group_by(village) #<<
+```
 
 ---
 
@@ -932,7 +1029,7 @@ Only the rows where total_meals is greater than 20 should be shown in the final 
 ```{r}
 interviews %>%
   group_by(village) %>%
-  summarize(mean_no_membrs = mean(no_membrs))
+  summarize(mean_no_membrs = mean(no_membrs)) #<<
 ```
 
 ---
@@ -943,7 +1040,7 @@ Grouping by multiple columns.
 
 ```{r}
 interviews %>%
-  group_by(village, memb_assoc) %>%
+  group_by(village, memb_assoc) %>% #<<
   summarize(mean_no_membrs = mean(no_membrs))
 ```
 
@@ -955,7 +1052,7 @@ Throwing in a `filter()`.
 
 ```{r}
 interviews %>%
-  filter(!is.na(memb_assoc)) %>%
+  filter(!is.na(memb_assoc)) %>% #<<
   group_by(village, memb_assoc) %>%
   summarize(mean_no_membrs = mean(no_membrs))
 ```
@@ -971,8 +1068,8 @@ interviews %>%
   filter(!is.na(memb_assoc)) %>%
   group_by(village, memb_assoc) %>%
   summarize(
-    mean_no_membrs = mean(no_membrs),
-    min_membrs = min(no_membrs)
+    mean_no_membrs = mean(no_membrs), #<<
+    min_membrs = min(no_membrs) #<<
   )
 ```
 
@@ -987,7 +1084,7 @@ interviews %>%
   filter(!is.na(memb_assoc)) %>%
   group_by(village, memb_assoc) %>%
   summarize(mean_no_membrs = mean(no_membrs), min_membrs = min(no_membrs)) %>%
-  arrange(min_membrs)
+  arrange(min_membrs) #<<
 ```
 
 ---
@@ -1001,7 +1098,9 @@ interviews %>%
   filter(!is.na(memb_assoc)) %>%
   group_by(village, memb_assoc) %>%
   summarize(mean_no_membrs = mean(no_membrs), min_membrs = min(no_membrs)) %>%
-  arrange(desc(min_membrs))
+  arrange(
+    desc(min_membrs) #<<
+  )
 ```
 
 ---
@@ -1010,24 +1109,26 @@ interviews %>%
 
 ```{r}
 interviews %>%
-    count(village)
+    count(village) #<<
 ```
+
+--
 
 ```{r}
 interviews %>%
-    count(village, sort = TRUE)
+    count(village, sort = TRUE) #<<
 ```
 
 ---
 
-![](exercise-banner.svg)
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
 ## Summaries
 
-- How many households in the survey have an average of two meals per day? Three meals per day? Are there any other numbers of meals represented?
-- Use `group_by()` and `summarize()` to find the mean, min, and max number of household members for each village. Also add the number of observations (**Hint:** see `?n`).
+- How many households in the survey have an average of two meals per day? Three meals per day?
+- Find the mean, min, and max number of household members for each village. Also add the number of observations (**Hint:** see `?n`).
 - What was the largest household interviewed in each month?
 
 ---
@@ -1053,7 +1154,7 @@ interviews %>%
 
 ```{r}
 interviews %>%
-  select(instanceID, respondent_wall_type, no_membrs)
+  select(instanceID, respondent_wall_type, no_membrs) #<<
 ```
 
 ---
@@ -1063,7 +1164,10 @@ interviews %>%
 ```{r}
 interviews_spread <- interviews %>%
   select(instanceID, respondent_wall_type, no_membrs) %>%
-  spread(respondent_wall_type, no_membrs)
+  spread(
+    respondent_wall_type,                   # Key
+    no_membrs                               # Value
+  )
 interviews_spread
 ```
 
@@ -1074,7 +1178,11 @@ interviews_spread
 ```{r}
 interviews %>%
   select(instanceID, respondent_wall_type, no_membrs) %>%
-  spread(respondent_wall_type, no_membrs, fill = 0)
+  spread(
+    respondent_wall_type,                   # Key
+    no_membrs,                              # Value
+    fill = 0 #<<
+  )
 ```
 
 ---
@@ -1094,23 +1202,33 @@ interviews %>%
 
 ```{r}
 interviews_spread %>%
-  gather(respondent_wall_type, no_membrs, burntbricks, cement, muddaub, sunbricks)
+  gather(
+    respondent_wall_type,                   # Key
+    no_membrs,                              # Value
+    burntbricks, cement, muddaub, sunbricks # Columns to gather
+  )
 ```
 
 ---
 
 ## Gathering
 
+If there are many columns to gather then there's an easier way.
+
 ```{r}
 interviews_spread %>%
-  gather(respondent_wall_type, no_membrs, -instanceID)
+  gather(
+    respondent_wall_type,
+    no_membrs,
+    -instanceID #<<
+  )
 ```
 
 ---
 
-## Cleaning
+## Splitting
 
-This column is hard to work with:
+The `items_owned` column is hard to work with.
 
 ```{r}
 interviews %>%
@@ -1119,27 +1237,57 @@ interviews %>%
 
 ---
 
-## Cleaning
+## Splitting
 
 We can fix that.
 
-```{r eval = FALSE}
+```{r}
 interviews %>%
-  separate_rows(items_owned, sep=";") %>%
-  mutate(items_owned_logical = TRUE) %>%
-  spread(key = items_owned, value = items_owned_logical, fill = FALSE)
+  separate_rows(items_owned, sep=";") %>% #<<
+  select(key_ID, items_owned)
 ```
 
 ---
 
-![](exercise-banner.svg)
+## Splitting
+
+```{r}
+interviews %>%
+  separate_rows(items_owned, sep=";") %>%
+  mutate(items_owned_logical = TRUE) %>% #<<
+  select(key_ID, items_owned, items_owned_logical)
+```
+
+---
+
+## Splitting
+
+Indicator variables for each column.
+
+```{r}
+interviews %>%
+  separate_rows(items_owned, sep=";") %>%
+  mutate(items_owned_logical = TRUE) %>%
+  spread( #<<
+    items_owned, #<<
+    items_owned_logical, #<<
+    fill = FALSE #<<
+  ) %>% #<<
+  select(key_ID, bicycle:lorry)
+```
+
+---
+
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
 
 <hr>
 
-## Cleaning
+## Splitting
 
-- Create `interviews_months_lack_food` that has one column for each month and records `TRUE` or `FALSE` for whether each interview respondent was lacking food in that month.
-- How many months (on average) were respondents without food if they did belong to an irrigation association? What about if they didn't?
+- Split the contents of `months_lack_food` into indicator variables showing which months food was lacking.
+- How many months (on average) were respondents without food? Does this depend on `memb_assoc`?
+
+**Hint:** Think carefully about how the second question can be broken down into parts.
 
 ---
 
@@ -1169,3 +1317,510 @@ class: inverse, center, middle
 
 # Data Visualisation with ggplot2
 
+---
+background-image: url(https://github.com/datawookie/useful-images/raw/master/book-covers/ggplot2-book-cover.png)
+background-size: contain
+background-position: 0% 0%
+
+.pull-right[
+`{ggplot2}` is a package for visualisations in R...
+
+- developed by Hadley Wickham during [PhD](https://lib.dr.iastate.edu/rtd/15639/)
+- based on the Grammar of Graphics<sup>1</sup>.
+
+.footnote[<sup>1</sup> Wilkinson, L. (2005). *The Grammar of Graphics*. Springer-Verlag.]
+]
+
+---
+
+.pull-left[
+## Plot Base
+
+```{r plot-base, fig.show = 'hide'}
+ggplot(data = interviews_plotting)
+```
+]
+.pull-right[
+```{r ref.label = 'plot-base', echo = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Define an Aesthetic Mapping
+
+```{r plot-base-aes, fig.show = 'hide'}
+ggplot(
+  data = interviews_plotting,
+  aes(x = no_membrs, y = number_items)
+  )
+```
+]
+.pull-right[
+```{r ref.label = 'plot-base-aes', echo = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Add a Geom
+
+```{r plot-base-aes-geom, fig.show = 'hide'}
+ggplot(
+  data = interviews_plotting,
+  aes(x = no_membrs, y = number_items)
+  ) +
+  geom_point()
+```
+
+Some other geoms:
+
+- `geom_line()`
+- `geom_bar()` and
+- `geom_boxplot()`.
+]
+.pull-right[
+```{r ref.label = 'plot-base-aes-geom', echo = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Adding Layers
+
+You literally add layers to a plot with `+`.
+
+```{r add-layers, fig.show = 'hide'}
+p <- ggplot(
+  data = interviews_plotting,
+  aes(x = no_membrs, y = number_items)
+)
+
+p + geom_point()
+```
+
+**Note:** There is some *serious* overplotting!
+]
+.pull-right[
+```{r ref.label = 'add-layers', echo = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Improving the Plot: Transparency
+
+```{r transparency, fig.show = 'hide'}
+p + geom_point(alpha = 0.5)
+```
+]
+.pull-right[
+```{r ref.label = 'transparency', echo = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Improving the Plot: Jitter
+
+```{r jitter, fig.show = 'hide'}
+p + geom_jitter(alpha = 0.5)
+```
+]
+.pull-right[
+```{r ref.label = 'jitter', echo = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Improving the Plot: Adding Colour
+
+```{r colour, fig.show = 'hide'}
+p + geom_jitter(alpha = 0.5, color = "blue")
+```
+]
+.pull-right[
+```{r ref.label = 'colour', echo = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Using Aesthetics for Colour
+
+```{r colour-aesthetic, fig.show = 'hide'}
+p + geom_jitter(
+  aes(color = village),
+  alpha = 0.75
+)
+```
+]
+.pull-right[
+```{r ref.label = 'colour-aesthetic', echo = FALSE}
+```
+]
+
+---
+
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
+
+<hr>
+
+## Scatter Plot
+
+Create a scatter plot of `rooms` versus `village` with `respondent_wall_type` showing in different colors.
+
+Is this a good way to show this type of data?
+
+---
+
+.pull-left[
+## Boxplot
+
+```{r boxplot, fig.show = 'hide'}
+ggplot(
+  interviews_plotting,
+  aes(
+    x = respondent_wall_type,
+    y = rooms
+  )
+) +
+  geom_boxplot()
+```
+]
+.pull-right[
+```{r ref.label = 'boxplot', echo = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Boxplot with Jitter
+
+```{r boxplot-jitter, fig.show = 'hide'}
+ggplot(
+  interviews_plotting,
+  aes(
+    x = respondent_wall_type,
+    y = rooms
+  )
+) +
+  geom_boxplot() +
+  geom_jitter()
+```
+]
+.pull-right[
+```{r ref.label = 'boxplot-jitter', echo = FALSE}
+```
+]
+
+---
+
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
+
+<hr>
+
+## Boxplot
+
+A boxplot can mask some details of the data, for example a bimodal distribution. A violin plot is a good alternative.
+
+1. Try out `geom_violin()` as a replacement for `geom_boxplot()`.
+2. Create a boxplot of `liv_count` versus `respondent_wall_type`.
+
+  - Superimpose a jitter layer to show actual observations.
+  - Colour the points using `memb_assoc` (member of an irrigation association).
+  
+---
+
+.pull-left[
+## Barplot
+
+```{r barplot, fig.show = 'hide'}
+ggplot(
+  data = interviews_plotting,
+  aes(
+    x = respondent_wall_type
+  )
+) +
+  geom_bar()
+```
+]
+.pull-right[
+```{r ref.label = 'barplot', echo = FALSE}
+```
+]
+  
+---
+
+.pull-left[
+## Barplot with Fill
+
+```{r barplot-fill, fig.show = 'hide'}
+ggplot(
+  data = interviews_plotting,
+  aes(
+    x = respondent_wall_type
+  )
+) +
+  geom_bar(aes(fill = village))
+```
+]
+.pull-right[
+```{r ref.label = 'barplot-fill', echo = FALSE}
+```
+]
+  
+---
+
+.pull-left[
+## Barplot with Dodgy Fill
+
+```{r barplot-fill-dodge, fig.show = 'hide'}
+ggplot(
+  data = interviews_plotting,
+  aes(
+    x = respondent_wall_type
+  )
+) +
+  geom_bar(
+    aes(fill = village),
+    position = "dodge" #<<
+    )
+```
+]
+.pull-right[
+```{r ref.label = 'barplot-fill-dodge', echo = FALSE}
+```
+]
+
+---
+
+![](https://raw.githack.com/datawookie/useful-images/master/banner/banner-exercise.svg)
+
+<hr>
+
+## Barplot
+
+1. Find the proportion of respondents per village who are part of an irrigation association (`memb_assoc`).
+
+  - Consider only respondents who answered that question.
+
+2. Create a dodged barplot of proportions.
+
+  - **Hint:** You'll need to provide a `y` aesthetic.
+  - **Hint:** You'll need to specify `stat = "identity"` for `geom_bar()`.
+  - Which village had the lowest proportion of respondents in an irrigation association?
+  
+---
+
+.pull-left[
+## Labels
+
+```{r labels, fig.show = 'hide'}
+ggplot(
+  data = interviews_plotting,
+  aes(
+    x = respondent_wall_type
+  )
+) +
+  geom_bar(
+    aes(fill = village),
+    position = "dodge"
+  ) +
+  labs(
+    title="Frequency of wall type", #<<
+    x="Wall Type", #<<
+    y="Count" #<<
+  )
+```
+]
+.pull-right[
+```{r ref.label = 'labels', echo = FALSE}
+```
+]
+  
+---
+
+.pull-left[
+## Facet Wrap
+
+```{r facet-wrap, fig.show = 'hide'}
+ggplot(
+  data = interviews_plotting,
+  aes(
+    x = respondent_wall_type
+  )
+) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~ village) + #<<
+  labs(
+    title="Frequency of wall type",
+    x="Wall Type",
+    y="Count"
+  )
+```
+]
+.pull-right[
+```{r ref.label = 'facet-wrap', echo = FALSE}
+```
+]
+  
+---
+
+.pull-left[
+## Facet Grid
+
+```{r facet-wrap-grid, fig.show = 'hide', warning = FALSE}
+p <- ggplot(
+  data = interviews_plotting,
+  aes(
+    x = years_liv
+  )
+) +
+  geom_density() + #<<
+  facet_grid( #<<
+    village ~ respondent_wall_type #<<
+  ) + #<<
+  labs(
+    x="Years living in village",
+    y="Density"
+  )
+
+p
+```
+**Note:** Panels without plot have insufficient data.
+]
+.pull-right[
+```{r ref.label = 'facet-wrap-grid', echo = FALSE, warning = FALSE}
+```
+]
+  
+---
+
+.pull-left[
+## Themes
+
+```{r themes, fig.show = 'hide', warning = FALSE}
+p +
+  theme_bw() #<<
+```
+
+Some other themes:
+
+- `theme_minimal()`
+- `theme_classic()` and
+- `theme_dark()`.
+
+Also look at [ggthemes](https://jrnold.github.io/ggthemes/reference/index.html) package.
+]
+.pull-right[
+```{r ref.label = 'themes', echo = FALSE, warning = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Tweaking Themes: Font Size
+
+```{r font-size, fig.show = 'hide', warning = FALSE}
+p +
+  theme_bw() +
+  theme(text = element_text(size = 16)) #<<
+```
+]
+.pull-right[
+```{r ref.label = 'font-size', echo = FALSE, warning = FALSE}
+```
+]
+
+---
+
+.pull-left[
+## Tweaking Themes: Font Angle
+
+```{r font-angle, fig.show = 'hide', warning = FALSE}
+p +
+  theme_bw() +
+  theme(
+    text = element_text(
+      size = 16,
+      colour = "grey20"
+    ),
+    axis.text = element_text(size = 10),
+    axis.text.x = element_text(
+      angle = 90,
+      vjust = 0.5
+    )
+  )
+```
+]
+.pull-right[
+```{r ref.label = 'font-angle', echo = FALSE, warning = FALSE}
+```
+]
+
+---
+
+## Create a Custom Theme
+
+```{r}
+theme_social_science <-   theme(
+  text = element_text(
+    size = 16,
+    colour = "grey20"
+  ),
+  axis.text = element_text(size = 10),
+  axis.text.x = element_text(
+    angle = 90,
+    vjust = 0.5
+  ),
+  plot.title = element_text(hjust = 0.5) #<<
+)
+```
+
+  
+---
+
+.pull-left[
+## Apply a Custom Theme
+
+```{r apply-custom-theme, fig.show = 'hide'}
+ggplot(
+  data = interviews_plotting,
+  aes(
+    x = respondent_wall_type
+  )
+) +
+  geom_bar() +
+  labs(title = "Histogram of Wall Type") +
+  theme_social_science
+```
+]
+.pull-right[
+```{r ref.label = 'apply-custom-theme', echo = FALSE}
+```
+]
+
+
+
+---
+
+## Saving Plots
+
+```{r eval = FALSE}
+ggsave("fig_output/wall-type-barplot.png", width = 15, height = 10)
+```
+
+By default `ggsave()` will save the most recent plot.
+
+You can also pass it a plot object.
